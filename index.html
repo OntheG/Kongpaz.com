@@ -20,21 +20,19 @@
             overflow-x: hidden;
         }
 
-        /* Main container - putih polos responsif */
         .main-container {
             max-width: 1400px;
             margin: 0 auto;
             padding: 32px 24px 48px 24px;
         }
 
-        /* Logo area dengan motion fade-in */
+        /* Logo area dengan motion */
         .logo-wrapper {
             text-align: center;
             margin: 20px 0 40px 0;
             animation: fadeInDown 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
         }
 
-        /* Logo GULGULE unik */
         .gulgule-logo {
             font-size: clamp(42px, 10vw, 64px);
             font-weight: 700;
@@ -45,11 +43,9 @@
             color: transparent;
             position: relative;
             display: inline-block;
-            transition: filter 0.3s ease;
             cursor: default;
         }
 
-        /* efek kedalaman logo */
         .gulgule-logo::before {
             content: "GULGULE";
             position: absolute;
@@ -76,7 +72,6 @@
             animation: expandLine 0.5s ease-out 0.3s forwards;
         }
 
-        /* Animations */
         @keyframes fadeInDown {
             from {
                 opacity: 0;
@@ -108,7 +103,6 @@
             }
         }
 
-        /* Grid artikel - responsif */
         .news-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
@@ -116,7 +110,6 @@
             margin-top: 20px;
         }
 
-        /* Kartu artikel dengan motion hover */
         .news-card {
             background: #ffffff;
             border: 1px solid #eef0f2;
@@ -128,10 +121,8 @@
             display: flex;
             flex-direction: column;
             animation: cardReveal 0.5s ease-out backwards;
-            will-change: transform;
         }
 
-        /* Stagger animation untuk tiap kartu */
         .news-card:nth-child(1) { animation-delay: 0.02s; }
         .news-card:nth-child(2) { animation-delay: 0.07s; }
         .news-card:nth-child(3) { animation-delay: 0.12s; }
@@ -145,7 +136,6 @@
             transform: translateY(-6px);
         }
 
-        /* Container gambar dengan efek scale */
         .card-image {
             width: 100%;
             height: 210px;
@@ -168,7 +158,26 @@
             transform: scale(1.05);
         }
 
-        /* Judul artikel */
+        /* Fallback style jika gambar gagal load */
+        .card-image img.error-load {
+            display: none;
+        }
+
+        .card-image .image-fallback {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #f1f3f4;
+            color: #9aa0a6;
+            font-size: 14px;
+            font-weight: 500;
+            text-align: center;
+            padding: 20px;
+        }
+
         .article-title {
             padding: 20px 20px 12px 20px;
             font-size: 19px;
@@ -190,7 +199,6 @@
             text-decoration: underline;
         }
 
-        /* Sumber artikel (minimal) */
         .article-source {
             font-size: 12px;
             font-weight: 400;
@@ -224,7 +232,6 @@
             opacity: 1;
         }
 
-        /* Responsive untuk mobile & desktop rapi */
         @media (max-width: 768px) {
             .main-container {
                 padding: 20px 20px 40px 20px;
@@ -261,7 +268,6 @@
             }
         }
 
-        /* fokus aksesibilitas */
         .news-card:focus-visible {
             outline: 2px solid #1a73e8;
             outline-offset: 2px;
@@ -271,22 +277,20 @@
 <body>
 
 <div class="main-container">
-    <!-- Logo dengan motion -->
     <div class="logo-wrapper">
         <div class="gulgule-logo">GULGULE</div>
         <div class="logo-underline"></div>
     </div>
 
-    <!-- Grid artikel sesuai spesifikasi terbaru + tambahan artikel keenam -->
     <div class="news-grid">
         
-        <!-- 1. Kongpaz.com: Kafka Menepis Rumor Kencan, foto KafkaNews.png, link ke Kongpaz.html -->
+        <!-- 1. Kongpaz.com - KafkaNews.png -->
         <div class="news-card" data-url="Kongpaz.html" data-external="false">
             <div class="card-image">
-                <img src="KafkaNews.png" alt="Kafka news" onerror="this.src='https://placehold.co/600x400/f0f2f5/5f6368?text=KafkaNews'; this.onerror=null;">
+                <img src="KafkaNews.png" alt="Kafka news" data-filename="KafkaNews.png" onerror="handleImageError(this)">
             </div>
             <div class="article-title">
-                <a href="Kongpaz.html">Kafka Menepis Rumor Kencan: “Cuma Lagi Ngetik di Grup Chat”, Kafka Siap Gugat Media!</a>
+                <a href="Kongpaz.html">Kafka Menepis Rumor Kencan: "Cuma Lagi Ngetik di Grup Chat", Kafka Siap Gugat Media!</a>
             </div>
             <div class="article-source">
                 <span class="source-name">Kongpaz.com</span>
@@ -294,10 +298,10 @@
             </div>
         </div>
 
-        <!-- 2. Dispagz: Kafka Family Controversy as Allegations of a Child Born Out of Wedlock Surface, foto KafkaNews2.png, link ke Dispagz.html -->
+        <!-- 2. Dispagz - KafkaNews2.png -->
         <div class="news-card" data-url="Dispagz.html" data-external="false">
             <div class="card-image">
-                <img src="KafkaNews2.png" alt="Kafka family controversy" onerror="this.src='https://placehold.co/600x400/f0f2f5/5f6368?text=KafkaNews2'; this.onerror=null;">
+                <img src="KafkaNews2.png" alt="Kafka family controversy" data-filename="KafkaNews2.png" onerror="handleImageError(this)">
             </div>
             <div class="article-title">
                 <a href="Dispagz.html">Kafka Family Controversy as Allegations of a Child Born Out of Wedlock Surface</a>
@@ -308,10 +312,10 @@
             </div>
         </div>
 
-        <!-- 3. NETZEN: Akun Misterius Picu Kecemasan Publik Lewat Deretan Foto Kafka, foto KafkaNews3.png, link ke Netzen1.html -->
+        <!-- 3. NETZEN - KafkaNews3.png -->
         <div class="news-card" data-url="Netzen1.html" data-external="false">
             <div class="card-image">
-                <img src="KafkaNews3.png" alt="Akun misterius Kafka" onerror="this.src='https://placehold.co/600x400/f0f2f5/5f6368?text=KafkaNews3'; this.onerror=null;">
+                <img src="KafkaNews3.png" alt="Akun misterius Kafka" data-filename="KafkaNews3.png" onerror="handleImageError(this)">
             </div>
             <div class="article-title">
                 <a href="Netzen1.html">Akun Misterius Picu Kecemasan Publik Lewat Deretan Foto Kafka</a>
@@ -322,10 +326,10 @@
             </div>
         </div>
 
-        <!-- 4. ELITE : Is Kafka Linked to Alleged Financial Misconduct Within His Family's Business Empire?, foto KafkaNews4.png, link ke Elite.html (tetap) -->
+        <!-- 4. ELITE - KafkaNews4.png -->
         <div class="news-card" data-url="Elite.html" data-external="false">
             <div class="card-image">
-                <img src="KafkaNews4.png" alt="Kafka financial misconduct" onerror="this.src='https://placehold.co/600x400/f0f2f5/5f6368?text=KafkaNews4'; this.onerror=null;">
+                <img src="KafkaNews4.png" alt="Kafka financial misconduct" data-filename="KafkaNews4.png" onerror="handleImageError(this)">
             </div>
             <div class="article-title">
                 <a href="Elite.html">Is Kafka Linked to Alleged Financial Misconduct Within His Family's Business Empire?</a>
@@ -336,10 +340,10 @@
             </div>
         </div>
 
-        <!-- 5. NETZEN : Netizen Desak Keamanan Ketat, Kafka Diminta Hindari Aktivitas Sendiri, foto KafkaNews5.png, link ke Netzen2.html -->
+        <!-- 5. NETZEN - KafkaNews5.png -->
         <div class="news-card" data-url="Netzen2.html" data-external="false">
             <div class="card-image">
-                <img src="KafkaNews5.png" alt="Netizen desak keamanan" onerror="this.src='https://placehold.co/600x400/f0f2f5/5f6368?text=KafkaNews5'; this.onerror=null;">
+                <img src="KafkaNews5.png" alt="Netizen desak keamanan" data-filename="KafkaNews5.png" onerror="handleImageError(this)">
             </div>
             <div class="article-title">
                 <a href="Netzen2.html">Netizen Desak Keamanan Ketat, Kafka Diminta Hindari Aktivitas Sendiri</a>
@@ -350,11 +354,10 @@
             </div>
         </div>
 
-        <!-- 6. ARTIKEL BARU: Kafka Sparks Dating Rumors After Phone-Focused Arrival at Soekarno-Hatta International Airport
-             Sumber: Dispagz | Link eksternal: https://ontheg.github.io/DISPAGZ/Celebrity.html | Foto: KafkaNews6.png -->
+        <!-- 6. Dispagz - KafkaNews6.png (link eksternal) -->
         <div class="news-card" data-url="https://ontheg.github.io/DISPAGZ/Celebrity.html" data-external="true">
             <div class="card-image">
-                <img src="KafkaNews6.png" alt="Kafka at airport dating rumors" onerror="this.src='https://placehold.co/600x400/f0f2f5/5f6368?text=KafkaNews6'; this.onerror=null;">
+                <img src="KafkaNews6.png" alt="Kafka at airport dating rumors" data-filename="KafkaNews6.png" onerror="handleImageError(this)">
             </div>
             <div class="article-title">
                 <a href="https://ontheg.github.io/DISPAGZ/Celebrity.html" target="_blank" rel="noopener noreferrer">Kafka Sparks Dating Rumors After Phone-Focused Arrival at Soekarno-Hatta International Airport</a>
@@ -368,22 +371,109 @@
 </div>
 
 <script>
-    (function() {
-        // Smooth card click handling: seluruh area kartu bisa diklik
-        // Untuk link internal biasa (file .html) dan eksternal (akan buka tab baru jika perlu)
+    // Fungsi penanganan error gambar dengan percobaan alternatif (case insensitive & fallback)
+    function handleImageError(imgElement) {
+        // Jika sudah pernah mencoba fallback, jangan loop
+        if (imgElement.hasAttribute('data-fallback-attempted')) return;
+        imgElement.setAttribute('data-fallback-attempted', 'true');
+        
+        const originalSrc = imgElement.src;
+        const filename = imgElement.getAttribute('data-filename') || '';
+        
+        // Daftar kemungkinan variasi case yang umum di GitHub Pages
+        const variations = [];
+        if (filename) {
+            // Tambahkan variasi lowercase, uppercase, capitalised
+            variations.push(filename.toLowerCase());
+            variations.push(filename.toUpperCase());
+            variations.push(filename.charAt(0).toUpperCase() + filename.slice(1).toLowerCase());
+            variations.push(filename.replace('.png', '.PNG'));
+            variations.push(filename.replace('.PNG', '.png'));
+        }
+        
+        // Ambil path directory dari src
+        let pathParts = originalSrc.split('/');
+        pathParts.pop();
+        const basePath = pathParts.join('/') + (pathParts.length ? '/' : '');
+        
+        // Coba variasi satu per satu
+        let attemptIndex = 0;
+        
+        function tryNextVariation() {
+            if (attemptIndex < variations.length) {
+                const trySrc = basePath + variations[attemptIndex];
+                attemptIndex++;
+                fetch(trySrc, { method: 'HEAD', mode: 'no-cors' }) // no-cors tetap bisa cek status
+                    .then(() => {
+                        // Jika fetch berhasil (meskipun opaque), kita coba set src
+                        imgElement.src = trySrc;
+                        imgElement.onerror = () => {
+                            // Jika masih error, lanjut ke variasi berikutnya
+                            tryNextVariation();
+                        };
+                        imgElement.onload = () => {
+                            // Berhasil, hapus fallback jika ada
+                            removeFallback(imgElement);
+                        };
+                    })
+                    .catch(() => {
+                        tryNextVariation();
+                    });
+            } else {
+                // Semua variasi gagal, tampilkan fallback konten
+                showFallback(imgElement, filename);
+            }
+        }
+        
+        // Mulai coba variasi setelah delay kecil
+        setTimeout(tryNextVariation, 10);
+    }
+    
+    function showFallback(imgElement, originalName) {
+        const container = imgElement.parentElement;
+        if (!container) return;
+        
+        // Sembunyikan img
+        imgElement.style.display = 'none';
+        
+        // Cek apakah sudah ada fallback
+        if (container.querySelector('.image-fallback')) return;
+        
+        // Buat elemen fallback
+        const fallbackDiv = document.createElement('div');
+        fallbackDiv.className = 'image-fallback';
+        fallbackDiv.innerHTML = `
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#9aa0a6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="2.18"></rect>
+                <circle cx="8.5" cy="8.5" r="1.5" fill="#9aa0a6" stroke="none"></circle>
+                <polyline points="22 14 16 9 2 22 22 22"></polyline>
+            </svg>
+            <p style="margin-top: 8px;">${originalName || 'Gambar'}</p>
+            <p style="font-size: 11px; margin-top: 4px;">klik untuk buka artikel</p>
+        `;
+        container.appendChild(fallbackDiv);
+    }
+    
+    function removeFallback(imgElement) {
+        const container = imgElement.parentElement;
+        if (!container) return;
+        const fallback = container.querySelector('.image-fallback');
+        if (fallback) fallback.remove();
+        imgElement.style.display = 'block';
+    }
+    
+    // Card click handling
+    document.addEventListener('DOMContentLoaded', function() {
         const cards = document.querySelectorAll('.news-card');
         
         cards.forEach(card => {
-            // Ambil link utama dari judul artikel (sudah ada <a>)
             const titleLink = card.querySelector('.article-title a');
             if (!titleLink) return;
             
             const targetUrl = titleLink.getAttribute('href');
             const isExternal = card.getAttribute('data-external') === 'true';
             
-            // Event click pada kartu
             card.addEventListener('click', (e) => {
-                // Cek apakah yang diklik adalah elemen <a> atau di dalamnya (biarkan link menangani sendiri)
                 let target = e.target;
                 let isClickOnLink = false;
                 while (target && target !== card) {
@@ -394,7 +484,6 @@
                     target = target.parentNode;
                 }
                 
-                // Jika bukan klik pada link, arahkan sesuai targetUrl
                 if (!isClickOnLink && targetUrl && targetUrl !== '#') {
                     e.preventDefault();
                     if (isExternal || targetUrl.startsWith('http')) {
@@ -408,17 +497,23 @@
             card.style.cursor = 'pointer';
         });
         
-        // Verifikasi ringkas di console
-        console.log('GULGULE | 6 artikel aktif: Kongpaz, Dispagz (2x), NETZEN (2x), ELITE, plus artikel keenam Dispagz dengan tautan eksternal');
-    })();
+        // Inisialisasi: cek semua gambar apakah sudah terload dengan benar
+        const allImages = document.querySelectorAll('.card-image img');
+        allImages.forEach(img => {
+            if (img.complete) {
+                const naturalWidth = img.naturalWidth;
+                if (naturalWidth === 0) {
+                    handleImageError(img);
+                }
+            } else {
+                img.addEventListener('error', function() { handleImageError(this); });
+                img.addEventListener('load', function() { removeFallback(this); });
+            }
+        });
+        
+        console.log('GULGULE | 6 artikel aktif, dengan fallback image jika file PNG tidak ditemukan');
+        console.log('Tips: Pastikan file gambar bernama persis: KafkaNews.png, KafkaNews2.png, KafkaNews3.png, KafkaNews4.png, KafkaNews5.png, KafkaNews6.png');
+    });
 </script>
-
-<!-- Catatan: 
-     - Gambar yang digunakan: KafkaNews.png, KafkaNews2.png, KafkaNews3.png, KafkaNews4.png, KafkaNews5.png, KafkaNews6.png
-     - Pastikan file gambar tersedia di direktori yang sama
-     - Untuk artikel 1-5: file tujuan (Kongpaz.html, Dispagz.html, Netzen1.html, Elite.html, Netzen2.html) harus tersedia.
-     - Artikel 6 mengarah ke link eksternal (Dispagz Celebrity) dan akan terbuka di tab baru.
-     - Tampilan mobile & desktop responsif dengan motion halus, tanpa emoji, tanpa footer berlebihan.
--->
 </body>
     </html>
