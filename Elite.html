@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Elite News | Kafka Family Scandal</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #ffffff;
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, sans-serif;
+      color: #1c152f;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .top-banner {
+      background: #faf8ff;
+      border-bottom: 1px solid #ede5fc;
+      padding: 0.6rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      font-size: 0.7rem;
+      color: #6950a9;
+      letter-spacing: 0.3px;
+    }
+
+    .main-header {
+      padding: 1.5rem 1.5rem 0.8rem 1.5rem;
+      border-bottom: 1px solid #f0e9fe;
+      background: white;
+    }
+
+    .logo-area {
+      text-align: left;
+    }
+
+    .logo-area h1 {
+      font-size: 2.4rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      background: linear-gradient(130deg, #2b1a4a 0%, #7b57c4 60%, #b18bea 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .logo-area .sub {
+      color: #8a6fcf;
+      font-size: 0.7rem;
+      font-weight: 400;
+      margin-top: 0.2rem;
+    }
+
+    .nav-row {
+      margin-top: 1rem;
+      display: flex;
+      gap: 1.8rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #42376b;
+      border-top: 1px solid #f3edfe;
+      padding-top: 0.9rem;
+      flex-wrap: wrap;
+    }
+
+    .container {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+
+    .featured-label {
+      display: inline-block;
+      background: #f1eaff;
+      color: #5e40a3;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.2rem 0.9rem;
+      border-radius: 20px;
+      margin-bottom: 1.2rem;
+      letter-spacing: 0.4px;
+    }
+
+    .headline {
+      font-size: 2.2rem;
+      font-weight: 800;
+      line-height: 1.25;
+      color: #110c22;
+      margin-bottom: 1rem;
+    }
+
+    @media (min-width: 768px) {
+      .headline {
+        font-size: 2.9rem;
+      }
+    }
+
+    .meta-info {
+      display: flex;
+      gap: 1.2rem;
+      color: #7e63bc;
+      font-size: 0.8rem;
+      border-bottom: 1px solid #efe6fe;
+      padding-bottom: 1rem;
+      margin-bottom: 1.8rem;
+      flex-wrap: wrap;
+    }
+
+    .article-content p {
+      margin-bottom: 1.4rem;
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #1e192e;
+    }
+
+    @media (min-width: 768px) {
+      .article-content p {
+        font-size: 1.07rem;
+      }
+    }
+
+    hr.divider {
+      margin: 2rem 0 1.8rem 0;
+      border: none;
+      height: 1px;
+      background: linear-gradient(90deg, #ede2fe, #cbb2ef, #ede2fe);
+    }
+
+    .comments-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin-bottom: 1.2rem;
+    }
+
+    .comments-head h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #2c1c4f;
+    }
+
+    .comment-badge {
+      background: #f0eaff;
+      padding: 0.2rem 0.9rem;
+      border-radius: 30px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #684bbd;
+    }
+
+    .comment-item {
+      padding: 1rem 0;
+      border-bottom: 1px solid #f2ebfe;
+    }
+
+    .comment-user {
+      font-weight: 700;
+      color: #58419b;
+      margin-bottom: 0.25rem;
+      font-size: 0.9rem;
+    }
+
+    .comment-text {
+      color: #1f1a30;
+      font-size: 0.94rem;
+      line-height: 1.45;
+    }
+
+    .comment-footer-note {
+      margin-top: 1.5rem;
+      text-align: right;
+      font-weight: 600;
+      color: #7a5dc2;
+      border-top: 1px solid #eee5fe;
+      padding-top: 1rem;
+      font-size: 0.9rem;
+    }
+
+    footer {
+      background: #fbfaff;
+      border-top: 1px solid #ede6f7;
+      padding: 1.8rem;
+      text-align: center;
+      font-size: 0.7rem;
+      color: #8f77ca;
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        padding: 1.25rem 1rem;
+      }
+      .main-header {
+        padding: 1rem 1rem 0.5rem 1rem;
+      }
+      .top-banner {
+        padding: 0.5rem 1rem;
+        font-size: 0.65rem;
+      }
+      .logo-area h1 {
+        font-size: 1.9rem;
+      }
+      .nav-row {
+        gap: 1rem;
+        font-size: 0.75rem;
+      }
+      .comment-text {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="top-banner">
+  <span>LONDON • BRUSSELS • BERLIN</span>
+  <span>EXCLUSIVE INVESTIGATION</span>
+</div>
+
+<div class="main-header">
+  <div class="logo-area">
+    <h1>ELITE NEWS</h1>
+    <div class="sub">Unfiltered. Incisive. Europe.</div>
+  </div>
+  <div class="nav-row">
+    <span>HOME</span>
+    <span>POLITICS</span>
+    <span>FINANCE</span>
+    <span>INVESTIGATIONS</span>
+    <span>EUROPE</span>
+  </div>
+</div>
+
+<div class="container">
+  <div class="featured-label">FINANCIAL SCRUTINY</div>
+  <h1 class="headline">Is Kafka Linked to Alleged Financial Misconduct Within His Family’s Business Empire?</h1>
+  <div class="meta-info">
+    <span>By Elite News Desk</span>
+    <span>London, UK</span>
+    <span>Updated 3 hours ago</span>
+  </div>
+
+  <div class="article-content">
+    <p>As political tensions intensify across Europe ahead of a closely contested election cycle, fresh scrutiny has emerged surrounding the family of Prime Minister Edward Kafka, raising questions over financial governance, corporate transparency, and the timing of recent public controversies.</p>
+    <p>At the centre of the reports is Renaissance Capital, a firm associated with the Kafka family, understood to operate across multiple sectors, including insurance, healthcare support services, and more recently, digital asset ventures. European investigative outlets have begun examining the company's financial structure following claims of irregular capital movements during Edward Kafka's time in office.</p>
+    <p>While no formal allegations have been proven, sources familiar with the matter suggest that certain transactions may have passed through complex intermediary networks, prompting calls for greater regulatory clarity. Analysts note that such structures are not uncommon in multinational corporate environments, though their presence often invites closer scrutiny when linked to public office.</p>
+    <p>The issue has, for now, gained greater traction across continental Europe than in the United Kingdom, where it is only beginning to enter mainstream political discourse. However, the situation is evolving, particularly as opposition figures push for increased oversight amid an already polarised political landscape.</p>
+    <p>Complicating the narrative is the growing attention surrounding Kafka himself, who has recently faced intense media focus over aspects of his private life. Though initially treated as a separate matter, the proximity of both developments has led some observers to question whether the personal coverage is overshadowing—or inadvertently diverting attention from—the more substantive financial concerns.</p>
+    <p>Kafka, often regarded as a prominent yet enigmatic figure within the broader family network, has not publicly addressed the speculation. His position—both as an individual actor and as part of a wider political and corporate structure—has placed him at the centre of a narrative that remains, at present, largely unresolved.</p>
+    <p>In the absence of confirmed findings, discussions continue to centre on perception as much as evidence, whether Kafka represents an independent figure navigating public pressure, or a more embedded participant within a system now facing increased examination.</p>
+    <p>As calls for transparency grow louder, the coming weeks may prove decisive—not only for the Prime Minister's political ambitions, but for the credibility of the institutions and corporate entities linked to his name.</p>
+  </div>
+
+  <hr class="divider">
+
+  <div class="comments-head">
+    <h2>Comments</h2>
+    <div class="comment-badge">Discussion</div>
+  </div>
+
+  <div class="comment-list">
+    <div class="comment-item">
+      <div class="comment-user">@Dereeuuk:</div>
+      <div class="comment-text">Renaissance Capital definitely has a darker side, we just haven't seen it fully exposed yet.</div>
+    </div>
+    <div class="comment-item">
+      <div class="comment-user">@Trursd:</div>
+      <div class="comment-text">Kafka opening businesses in Indonesia is odd. With his background, why not expand in London? Something doesn't add up.</div>
+    </div>
+    <div class="comment-item">
+      <div class="comment-user">@dreexks :</div>
+      <div class="comment-text">People are overreacting. There's no real proof Kafka is involved in anything illegal.</div>
+    </div>
+    <div class="comment-item">
+      <div class="comment-user">@Repuyyti :</div>
+      <div class="comment-text">Loh? Pencucian uang? Anjiiiiirrrr!</div>
+    </div>
+    <div class="comment-item">
+      <div class="comment-user">@Annaisze :</div>
+      <div class="comment-text">Political takedowns like this are pretty normal in Europe. If Renaissance Capital is clean, they should just be transparent and clear things up. Ah, but the dating scandal feels like a distraction, honestly...</div>
+    </div>
+    <div class="comment-item">
+      <div class="comment-user">@Loxxer:</div>
+      <div class="comment-text">Is it really surprising if a Prime Minister has business interests tied to his circle? Feels more like reality than scandal.</div>
+    </div>
+    <div class="comment-item">
+      <div class="comment-user">@Erwewsd:</div>
+      <div class="comment-text">Feels like he's trying to shape public opinion about his father tho...</div>
+    </div>
+  </div>
+
+  <div class="comment-footer-note">
+    +99.999
+  </div>
+</div>
+
+<footer>
+  ELITE NEWS — © 2026 All rights reserved.
+</footer>
+
+</body>
+  </html>
