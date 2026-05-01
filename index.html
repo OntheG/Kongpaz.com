@@ -29,7 +29,7 @@
         /* Logo area dengan motion */
         .logo-wrapper {
             text-align: center;
-            margin: 20px 0 40px 0;
+            margin: 20px 0 20px 0;
             animation: fadeInDown 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
         }
 
@@ -70,6 +70,63 @@
             opacity: 0.7;
             transform: scaleX(0);
             animation: expandLine 0.5s ease-out 0.3s forwards;
+        }
+
+        /* Search Bar Gaya Google */
+        .search-section {
+            display: flex;
+            justify-content: center;
+            margin: 20px auto 32px auto;
+            max-width: 580px;
+            padding: 0 16px;
+        }
+
+        .search-container {
+            width: 100%;
+            border: 1px solid #dfe1e5;
+            border-radius: 24px;
+            background-color: #fff;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+            transition: box-shadow 0.2s ease;
+            padding: 8px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .search-container:hover {
+            box-shadow: 0 1px 6px rgba(0,0,0,0.1);
+            border-color: rgba(223,225,229,0);
+        }
+
+        .search-icon {
+            color: #9aa0a6;
+            font-size: 20px;
+            font-weight: 400;
+            user-select: none;
+        }
+
+        .search-input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            font-size: 16px;
+            padding: 10px 0;
+            outline: none;
+            color: #202124;
+            cursor: default;
+            pointer-events: none;
+        }
+
+        .search-input::placeholder {
+            color: #9aa0a6;
+            font-weight: 400;
+        }
+
+        .mic-icon {
+            color: #9aa0a6;
+            font-size: 20px;
+            user-select: none;
         }
 
         @keyframes fadeInDown {
@@ -129,6 +186,7 @@
         .news-card:nth-child(4) { animation-delay: 0.17s; }
         .news-card:nth-child(5) { animation-delay: 0.22s; }
         .news-card:nth-child(6) { animation-delay: 0.27s; }
+        .news-card:nth-child(7) { animation-delay: 0.32s; } /* tambahan artikel baru */
 
         .news-card:hover {
             border-color: #d0d3d9;
@@ -251,7 +309,10 @@
                 margin: 0 18px 18px 18px;
             }
             .logo-wrapper {
-                margin: 12px 0 32px 0;
+                margin: 12px 0 10px 0;
+            }
+            .search-section {
+                margin: 12px auto 28px auto;
             }
         }
 
@@ -282,9 +343,17 @@
         <div class="logo-underline"></div>
     </div>
 
+    <!-- Searchbar statis yang tidak bisa diklik, mirip seperti sedang mencari "Kafka" -->
+    <div class="search-section">
+        <div class="search-container">
+            <span class="search-icon"></span>
+            <input type="text" class="search-input" placeholder="Kafka" value="Kafka" readonly disabled>
+        </div>
+    </div>
+
     <div class="news-grid">
         
-        <!-- 1. Kongpaz.com - KafkaNews.png -->
+        <!-- 1. Kongpaz.com - KafkaNews.png (artikel pertama sebelum penambahan) -->
         <div class="news-card" data-url="Kongpaz.html" data-external="false">
             <div class="card-image">
                 <img src="KafkaNews.png" alt="Kafka news" data-filename="KafkaNews.png" onerror="handleImageError(this)">
@@ -298,7 +367,21 @@
             </div>
         </div>
 
-        <!-- 2. Dispagz - KafkaNews2.png -->
+        <!-- 2. [NEW] Dispagz - How Long Has Kafka Hidden His Dark Side Behind a Perfect Image? (foto Kafkanews1.png) -->
+        <div class="news-card" data-url="Dispagz2.html" data-external="false">
+            <div class="card-image">
+                <img src="Kafkanews1.png" alt="Kafka dark side perfect image" data-filename="Kafkanews1.png" onerror="handleImageError(this)">
+            </div>
+            <div class="article-title">
+                <a href="Dispagz2.html">How Long Has Kafka Hidden His Dark Side Behind a Perfect Image?</a>
+            </div>
+            <div class="article-source">
+                <span class="source-name">Dispagz</span>
+                <span class="arrow-icon">→</span>
+            </div>
+        </div>
+
+        <!-- 3. Dispagz - Kafka Family Controversy (KafkaNews2.png) -->
         <div class="news-card" data-url="Dispagz.html" data-external="false">
             <div class="card-image">
                 <img src="KafkaNews2.png" alt="Kafka family controversy" data-filename="KafkaNews2.png" onerror="handleImageError(this)">
@@ -312,7 +395,7 @@
             </div>
         </div>
 
-        <!-- 3. NETZEN - KafkaNews3.png -->
+        <!-- 4. NETZEN - KafkaNews3.png -->
         <div class="news-card" data-url="Netzen1.html" data-external="false">
             <div class="card-image">
                 <img src="KafkaNews3.png" alt="Akun misterius Kafka" data-filename="KafkaNews3.png" onerror="handleImageError(this)">
@@ -326,7 +409,7 @@
             </div>
         </div>
 
-        <!-- 4. ELITE - KafkaNews4.png -->
+        <!-- 5. ELITE - KafkaNews4.png -->
         <div class="news-card" data-url="Elite.html" data-external="false">
             <div class="card-image">
                 <img src="KafkaNews4.png" alt="Kafka financial misconduct" data-filename="KafkaNews4.png" onerror="handleImageError(this)">
@@ -340,7 +423,7 @@
             </div>
         </div>
 
-        <!-- 5. NETZEN - KafkaNews5.png -->
+        <!-- 6. NETZEN - KafkaNews5.png -->
         <div class="news-card" data-url="Netzen2.html" data-external="false">
             <div class="card-image">
                 <img src="KafkaNews5.png" alt="Netizen desak keamanan" data-filename="KafkaNews5.png" onerror="handleImageError(this)">
@@ -354,7 +437,7 @@
             </div>
         </div>
 
-        <!-- 6. Dispagz - KafkaNews6.png (link eksternal) -->
+        <!-- 7. Dispagz - KafkaNews6.png (link eksternal) -->
         <div class="news-card" data-url="https://ontheg.github.io/DISPAGZ/Celebrity.html" data-external="true">
             <div class="card-image">
                 <img src="KafkaNews6.png" alt="Kafka at airport dating rumors" data-filename="KafkaNews6.png" onerror="handleImageError(this)">
@@ -367,6 +450,21 @@
                 <span class="arrow-icon">→</span>
             </div>
         </div>
+
+        <!-- 8. [NEW] Tungtang - Siapakah Kafka? (foto Kafkanews6.png) -->
+        <div class="news-card" data-url="Tuntang.html" data-external="false">
+            <div class="card-image">
+                <img src="Kafkanews6.png" alt="Siapakah Kafka" data-filename="Kafkanews6.png" onerror="handleImageError(this)">
+            </div>
+            <div class="article-title">
+                <a href="Tuntang.html">Siapakah Kafka?</a>
+            </div>
+            <div class="article-source">
+                <span class="source-name">Tungtang</span>
+                <span class="arrow-icon">→</span>
+            </div>
+        </div>
+
     </div>
 </div>
 
@@ -511,9 +609,9 @@
             }
         });
         
-        console.log('GULGULE | 6 artikel aktif, dengan fallback image jika file PNG tidak ditemukan');
-        console.log('Tips: Pastikan file gambar bernama persis: KafkaNews.png, KafkaNews2.png, KafkaNews3.png, KafkaNews4.png, KafkaNews5.png, KafkaNews6.png');
+        console.log('GULGULE | 8 artikel aktif (menambahkan artikel Dispagz dark side + Tungtang Siapakah Kafka)');
+        console.log('Pastikan file gambar: KafkaNews.png, Kafkanews1.png, KafkaNews2.png, KafkaNews3.png, KafkaNews4.png, KafkaNews5.png, KafkaNews6.png, Kafkanews6.png');
     });
 </script>
 </body>
-    </html>
+                </html>
