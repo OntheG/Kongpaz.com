@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>NETZEN - Akun Misterius Picu Kecemasan Publik</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0a0a;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.5;
+            color: #111;
+        }
+
+        .wrapper {
+            background: linear-gradient(165deg, #ffffff 0%, #fff5f5 40%, #fee2e2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 840px;
+            margin: 0 auto;
+            padding: 1.5rem 1rem 3rem 1rem;
+        }
+
+        .article-card {
+            background: white;
+            border-radius: 32px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px -15px rgba(185, 28, 28, 0.2);
+        }
+
+        .header-grad {
+            background: linear-gradient(125deg, #b91c1c 0%, #dc2626 45%, #ffffff 100%);
+            padding: 2rem 1.8rem;
+            position: relative;
+        }
+
+        .label-netzen {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            background: rgba(0,0,0,0.3);
+            padding: 0.25rem 1rem;
+            border-radius: 30px;
+            color: white;
+            margin-bottom: 1.2rem;
+            backdrop-filter: blur(4px);
+        }
+
+        /* PERBAIKAN JUDUL - warna solid gelap agar jelas terbaca */
+        .judul {
+            font-size: clamp(1.8rem, 6vw, 2.6rem);
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            color: #1a1a1a;
+            margin-bottom: 0.75rem;
+            text-shadow: 0 1px 2px rgba(255,255,255,0.5);
+        }
+
+        .meta-line {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #2d2d2d;
+            border-top: 1px solid rgba(255,255,255,0.4);
+            padding-top: 0.8rem;
+            margin-top: 0.5rem;
+        }
+
+        .featured-img {
+            width: 100%;
+            background: #f3f3f3;
+            border-bottom: 1px solid #ffd4d4;
+        }
+
+        .featured-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+            max-height: 520px;
+            aspect-ratio: 16/9;
+            object-position: center;
+        }
+
+        .content {
+            padding: 2rem 1.8rem;
+        }
+
+        .content p {
+            margin-bottom: 1.2rem;
+            font-size: clamp(0.95rem, 4vw, 1.05rem);
+            color: #1f1f1f;
+            font-weight: 450;
+            line-height: 1.65;
+        }
+
+        .galeri-slider {
+            margin: 1.8rem 0 2rem 0;
+            border-radius: 24px;
+            overflow: hidden;
+            background: #000;
+            box-shadow: 0 8px 25px -8px rgba(0,0,0,0.2);
+        }
+
+        .slider-view {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #1a1a1a;
+        }
+
+        .slider-view img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .slider-view img.active-slide {
+            display: block;
+            position: relative;
+        }
+
+        .slider-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 1.2rem;
+            background: #ffffffdd;
+            backdrop-filter: blur(12px);
+            border-top: 1px solid #ffbbbb;
+        }
+
+        .nav-btn {
+            background: #b91c1c;
+            border: none;
+            color: white;
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .nav-btn:hover {
+            background: #7f1a1a;
+            transform: scale(0.96);
+        }
+
+        .counter {
+            font-size: 0.8rem;
+            background: #fff0f0;
+            padding: 0.2rem 1rem;
+            border-radius: 60px;
+            color: #991b1b;
+            font-weight: 600;
+        }
+
+        .komentar-wrapper {
+            margin-top: 2.5rem;
+            border-top: 2px solid #fecaca;
+            padding-top: 1.5rem;
+        }
+
+        .komentar-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #b91c1c;
+            margin-bottom: 1.2rem;
+            letter-spacing: -0.3px;
+        }
+
+        .thread-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .thread-item {
+            background: #fefaf5;
+            border-radius: 20px;
+            padding: 1rem 1.2rem;
+            border: 1px solid #ffe0e0;
+            transition: 0.1s;
+        }
+
+        /* username style */
+        .username {
+            font-weight: 700;
+            color: #b91c1c;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-bottom: 0.4rem;
+            letter-spacing: -0.2px;
+            background: #fff0f0;
+            padding: 0.15rem 0.7rem;
+            border-radius: 20px;
+        }
+
+        .comment-text {
+            font-size: 0.92rem;
+            font-weight: 500;
+            color: #1e293b;
+            line-height: 1.45;
+            margin: 0.3rem 0 0.5rem 0;
+        }
+
+        .reply-box {
+            margin-top: 0.7rem;
+            padding-left: 1rem;
+            border-left: 3px solid #ef4444;
+            font-size: 0.87rem;
+            color: #334155;
+            background: #ffffff;
+            border-radius: 14px;
+            padding: 0.7rem 1rem;
+        }
+
+        .reply-name {
+            font-weight: 700;
+            color: #b91c1c;
+            margin-right: 0.4rem;
+        }
+
+        .footer-komentar {
+            margin-top: 1.5rem;
+            text-align: right;
+            padding-top: 0.5rem;
+            border-top: 1px dashed #ffcece;
+        }
+
+        .total-like {
+            font-weight: 800;
+            font-size: 0.9rem;
+            background: #fff0f0;
+            display: inline-block;
+            padding: 0.25rem 1rem;
+            border-radius: 50px;
+            color: #ae2a2a;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 1rem 0.75rem 2rem 0.75rem;
+            }
+            .content {
+                padding: 1.5rem 1.2rem;
+            }
+            .header-grad {
+                padding: 1.5rem 1.2rem;
+            }
+            .nav-btn {
+                padding: 0.3rem 1rem;
+                font-size: 0.75rem;
+            }
+            .thread-item {
+                padding: 0.9rem 1rem;
+            }
+            .comment-text {
+                font-size: 0.88rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .container {
+                max-width: 880px;
+                padding: 2rem 1rem 3rem 1rem;
+            }
+            .content p {
+                font-size: 1.07rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <div class="container">
+        <div class="article-card">
+            <div class="header-grad">
+                <div class="label-netzen">NETZEN</div>
+                <h1 class="judul">Akun Misterius Picu Kecemasan Publik Lewat Deretan Foto Kafka</h1>
+                <div class="meta-line">
+                    <span>8 menit lalu</span>
+                    <span>▪︎ Trending di Snap Now</span>
+                </div>
+            </div>
+
+            <div class="featured-img">
+                <img src="Kafkanews3.png" alt="Foto Kafka dari akun misterius" onerror="this.src='https://placehold.co/1200x800/dc2626/ffffff?text=KAFKANEWS3'">
+            </div>
+
+            <div class="content">
+                <p>Publik dikejutkan oleh kemunculan sebuah akun misterius di aplikasi Snap Now yang mengunggah serangkaian foto CEO media ternama, Kafka, dalam situasi yang tampak diambil tanpa sepengetahuannya. Dalam waktu singkat, unggahan tersebut menyebar luas dan memicu kekhawatiran di kalangan netizen.</p>
+                
+                <p>Foto-foto yang beredar memperlihatkan Kafka berada di berbagai lokasi sehari-hari, mulai dari sebuah kafe, pusat perbelanjaan, hingga sebuah ruangan yang diduga merupakan bagian dari salah satu kediamannya. Yang membuat publik semakin resah adalah sudut pengambilan gambar yang terasa tidak wajar. Beberapa terlihat seperti diambil diam-diam menggunakan ponsel dari kejauhan, sementara satu gambar lain disebut-sebut menyerupai rekaman CCTV dari dalam ruangan.</p>
+                
+                <div class="galeri-slider">
+                    <div class="slider-view" id="sliderView">
+                        <img src="Kafkanews3-1.png" class="slide-img active-slide" alt="Foto Kafka di kafe" onerror="this.src='https://placehold.co/1200x800/ee5555/ffffff?text=Kafkanews3-1.png'">
+                        <img src="Kafkanews3-2.png" class="slide-img" alt="Foto Kafka di pusat perbelanjaan" onerror="this.src='https://placehold.co/1200x800/ee5555/ffffff?text=Kafkanews3-2.png'">
+                    </div>
+                    <div class="slider-nav">
+                        <button class="nav-btn" id="btnPrev">← Sebelumnya</button>
+                        <span class="counter" id="slideCount">1 / 2</span>
+                        <button class="nav-btn" id="btnNext">Selanjutnya →</button>
+                    </div>
+                </div>
+
+                <p>Akun yang pertama kali mengunggah foto tersebut diketahui merupakan akun baru tanpa identitas jelas. Tidak ada informasi profil, riwayat unggahan, maupun petunjuk mengenai siapa yang berada di baliknya. Motif di balik penyebaran foto-foto tersebut pun masih menjadi tanda tanya besar.</p>
+                
+                <p>Tak lama setelah viral, akun tersebut dilaporkan telah ditakedown. Namun, foto-fotonya sudah terlanjur tersebar luas di berbagai platform lain, membuat upaya pengendalian menjadi jauh lebih sulit. Banyak pengguna media sosial mengaku merasa tidak nyaman, bahkan khawatir, melihat bagaimana seorang figur publik bisa dipantau sedemikian dekat dalam kehidupan pribadinya.</p>
+                
+                <p>Sejumlah netizen berspekulasi bahwa foto-foto tersebut diambil oleh pihak yang memiliki akses langsung atau setidaknya memahami pola aktivitas Kafka. Ada pula yang menduga keterlibatan stalker atau paparazzi yang melampaui batas privasi.</p>
+                
+                <p>Hingga saat ini, belum ada pernyataan resmi dari pihak Kafka terkait kejadian ini. Meski begitu, insiden ini kembali membuka diskusi yang lebih luas tentang batas antara ketertarikan publik dan pelanggaran privasi.</p>
+                
+                <!-- KOMENTAR DENGAN USERNAME -->
+                <div class="komentar-wrapper">
+                    <div class="komentar-title">Komentar</div>
+                    <div class="thread-list">
+                        <!-- Komentar 1 + balasan -->
+                        <div class="thread-item">
+                            <div class="username">@jauhar_oke</div>
+                            <div class="comment-text">"Kafka ini terlalu nyantuy deh kata gue mah... dia gasadar dia ini ceo dan terlalu menikmati hidup seakan ga punya musuh..."</div>
+                            <div class="reply-box">
+                                <span class="reply-name">@mawaninex</span> "Iya emang dia begitu sih wkwkwkk baru belakangan aja pakai bodyguard. Keknya itu foto diambil beberapa tahun lalu? Soalnya ada yang bilang foto yang di mall itu tahun 2023"
+                            </div>
+                        </div>
+                        <!-- Komentar 2 + balasan -->
+                        <div class="thread-item">
+                            <div class="username">@sari_panopticon</div>
+                            <div class="comment-text">"Foto yang di rumahnya itu udah di takedown? Gila serem sih, tapi katanya bukan rumahnya yang di Jakarta kan?"</div>
+                            <div class="reply-box">
+                                <span class="reply-name">@londoncalling_id</span> "Bukan. Keknya itu di London"
+                            </div>
+                        </div>
+                        <!-- Komentar 3 -->
+                        <div class="thread-item">
+                            <div class="username">@radityapandji</div>
+                            <div class="comment-text">"Menurut gue sih ini ulah paparazzi bukan netizen, diliat dari pergerakannya keknya nekat banget dan bukan tipikal warga kita sih"</div>
+                        </div>
+                        <!-- Komentar 4 -->
+                        <div class="thread-item">
+                            <div class="username">@dear_anonym</div>
+                            <div class="comment-text">"Kafka lama-lama cem idol wkwkwkk tapi ini harusnya dia dijaga sih krna dia orang penting kan sekarang. Semoga aja kedepannya dia bisa aware sama dirinya sendiri."</div>
+                        </div>
+                        <!-- Komentar 5 -->
+                        <div class="thread-item">
+                            <div class="username">@fotografilihat</div>
+                            <div class="comment-text">"Keknya ada foto baru juga deh, ga lama semua itu soalnya ada foto yang di cafe dan cafe itu baru buka"</div>
+                        </div>
+                    </div>
+                    <div class="footer-komentar">
+                        <span class="total-like">+99.999</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        const slides = document.querySelectorAll('#sliderView .slide-img');
+        const prev = document.getElementById('btnPrev');
+        const next = document.getElementById('btnNext');
+        const counterSpan = document.getElementById('slideCount');
+        
+        if (slides.length && prev && next) {
+            let current = 0;
+            const total = slides.length;
+            
+            function updateSliderUI() {
+                slides.forEach((img, idx) => {
+                    if (idx === current) {
+                        img.classList.add('active-slide');
+                    } else {
+                        img.classList.remove('active-slide');
+                    }
+                });
+                if (counterSpan) counterSpan.innerText = (current + 1) + ' / ' + total;
+            }
+            
+            prev.addEventListener('click', function(e) {
+                e.preventDefault();
+                current = (current - 1 + total) % total;
+                updateSliderUI();
+            });
+            
+            next.addEventListener('click', function(e) {
+                e.preventDefault();
+                current = (current + 1) % total;
+                updateSliderUI();
+            });
+            
+            updateSliderUI();
+        }
+        
+        const allImages = document.querySelectorAll('img');
+        allImages.forEach(img => {
+            img.addEventListener('error', function() {
+                if (!img.hasAttribute('data-fallback')) {
+                    img.setAttribute('data-fallback', 'true');
+                    if (img.src.includes('Kafkanews3.png')) {
+                        img.src = 'https://placehold.co/1200x800/dc2626/f8f8f8?text=Kafka+News';
+                    } else if (img.src.includes('Kafkanews3-1')) {
+                        img.src = 'https://placehold.co/1200x800/cc3b3b/ffffff?text=foto+kafe';
+                    } else if (img.src.includes('Kafkanews3-2')) {
+                        img.src = 'https://placehold.co/1200x800/cc3b3b/ffffff?text=foto+mall';
+                    }
+                }
+            });
+        });
+    })();
+</script>
+</body>
+</html>
