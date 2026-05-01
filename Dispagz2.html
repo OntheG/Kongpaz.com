@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+  <title>DISPAGZ - Kafka Dark Side Investigation</title>
+  <!-- Font Awesome icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f0f0f0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      line-height: 1.5;
+    }
+
+    .news-wrapper {
+      max-width: 1100px;
+      width: 100%;
+      background: #ffffff;
+      margin: 16px 12px;
+      border-radius: 36px 36px 28px 28px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      border: 1px solid #e0e0e0;
+    }
+
+    .brand-bar {
+      background: #000000;
+      padding: 18px 22px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 3px solid #333333;
+    }
+    .brand-icon {
+      background: #ffffff;
+      color: #000000;
+      font-weight: 800;
+      font-size: 1.9rem;
+      width: 52px;
+      height: 52px;
+      border-radius: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .brand-text {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: white;
+    }
+
+    .dateline {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 22px 6px 22px;
+      color: #3a3a3a;
+      font-weight: 500;
+      font-size: 0.9rem;
+      border-bottom: 1px solid #eaeaea;
+    }
+    .date {
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      background: #f5f5f5;
+      padding: 4px 12px;
+      border-radius: 30px;
+      color: #1a1a1a;
+    }
+    .category {
+      background: #000000;
+      color: white;
+      padding: 5px 16px;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.75rem;
+      letter-spacing: 0.4px;
+    }
+
+    .single-image-container {
+      margin: 16px 22px 8px 22px;
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      background: #ececec;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .single-image-container img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: contain;
+    }
+
+    h1 {
+      font-size: 2.1rem;
+      line-height: 1.2;
+      margin: 18px 22px 14px 22px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #111111;
+      border-left: 7px solid #000000;
+      padding-left: 18px;
+    }
+
+    .article-content {
+      margin: 0 22px 25px 22px;
+      font-size: 1.05rem;
+      color: #1f1f1f;
+    }
+
+    .article-content p {
+      margin-bottom: 1.5rem;
+    }
+
+    .article-content strong {
+      color: #000000;
+      font-weight: 700;
+    }
+
+    .comments-section {
+      background: #ffffff;
+      border-radius: 36px 36px 20px 20px;
+      margin-top: 30px;
+      padding: 18px 0 10px 0;
+      border-top: 2px solid #e0e0e0;
+    }
+    .comments-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 22px 12px 22px;
+      border-bottom: 1px solid #eeeeee;
+    }
+    .comments-header h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #111111;
+    }
+    .comments-header span {
+      background: #000000;
+      color: white;
+      border-radius: 50px;
+      padding: 4px 12px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .comment-item {
+      display: flex;
+      gap: 14px;
+      padding: 16px 22px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .comment-avatar {
+      background: #e0e0e0;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #1a1a1a;
+      font-weight: 800;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .comment-content {
+      flex: 1;
+    }
+    .comment-user {
+      font-weight: 700;
+      color: #111111;
+      margin-bottom: 4px;
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 8px;
+    }
+    .comment-user span {
+      background: #f0f0f0;
+      color: #3a3a3a;
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 30px;
+      font-weight: 500;
+    }
+    .comment-text {
+      color: #2a2a2a;
+      font-size: 0.98rem;
+      margin-bottom: 6px;
+      word-break: break-word;
+    }
+    .reply {
+      margin-left: 30px;
+      margin-top: 12px;
+      padding-left: 12px;
+      border-left: 2px solid #cccccc;
+    }
+    .comment-footer {
+      display: flex;
+      gap: 18px;
+      margin-top: 8px;
+      color: #6a6a6a;
+      font-size: 0.8rem;
+    }
+    .comment-footer i {
+      margin-right: 5px;
+      color: #888888;
+    }
+
+    .more-comments {
+      padding: 16px 22px;
+      font-weight: 600;
+      color: #000000;
+      border-top: 1px dashed #cccccc;
+      text-align: center;
+      background: #fafafa;
+      border-radius: 0 0 20px 20px;
+    }
+
+    .article-footer {
+      border-top: 1px solid #eaeaea;
+      padding: 18px 22px 22px 22px;
+      display: flex;
+      justify-content: flex-end;
+      color: #5a5a5a;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 600px) {
+      .brand-bar { padding: 14px 18px; }
+      .brand-icon { width: 44px; height: 44px; font-size: 1.6rem; }
+      .brand-text { font-size: 1.9rem; }
+      .dateline { padding: 12px 18px 5px 18px; font-size: 0.8rem; }
+      .category { font-size: 0.7rem; padding: 4px 12px; }
+      .single-image-container { margin: 12px 18px 5px 18px; }
+      h1 { font-size: 1.6rem; margin: 14px 18px 10px 18px; border-left-width: 5px; padding-left: 14px; }
+      .article-content { margin: 0 18px 20px 18px; font-size: 0.92rem; }
+      .comments-header { padding: 0 18px 10px 18px; }
+      .comments-header h3 { font-size: 1.3rem; }
+      .comment-item { padding: 14px 18px; gap: 10px; }
+      .comment-avatar { width: 38px; height: 38px; font-size: 1rem; }
+      .comment-text { font-size: 0.9rem; }
+      .reply { margin-left: 20px; }
+      .article-footer { padding: 14px 18px 18px 18px; font-size: 0.8rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="news-wrapper">
+    <div class="brand-bar">
+      <div class="brand-icon">D</div>
+      <div class="brand-text">DISPAGZ</div>
+    </div>
+
+    <div class="dateline">
+      <span class="date"><i class="far fa-calendar-alt" style="margin-right: 5px;"></i>3 Mei 2026</span>
+      <span class="category"><i class="fas fa-mask" style="margin-right: 5px;"></i>HOT NEWS</span>
+    </div>
+
+    <!-- HANYA 1 FOTO: Kafkanews1.png -->
+    <div class="single-image-container">
+      <img src="Kafkanews1.png" alt="Kafka - The hidden side" loading="lazy">
+    </div>
+
+    <h1>How Long Has Kafka Hidden His Dark Side Behind a Perfect Image?</h1>
+
+    <div class="article-content">
+      <p>For years, Kafka has stood at the center of the media industry as one of its most admired figures. As the CEO of several major media companies, he's built a reputation that feels almost too good to question. He shows up for youth events, supports creative communities, and carries himself with a kind of charm that's hard to ignore. People describe him as warm, thoughtful, even funny. The kind of leader who feels approachable despite his status.</p>
+
+      <p>But lately, that image hasn't felt quite as solid as it once did.</p>
+
+      <p>A source, who asked to be identified only as "Y," claims that the Kafka seen in public may only be a fraction of who he really is. According to them, there's a striking contrast between his public persona and his private self. They described it as looking at an iceberg, where what's visible above the surface is calm and controlled, but what lies underneath is far deeper and darker than most people would expect.</p>
+
+      <p>That perspective is impossible to verify on its own, but it has started to echo alongside other quiet conversations happening behind the scenes.</p>
+
+      <p>In recent months, unverified rumors circulating that Kafka was once seen at the London Psychiatry Clinic. While there has been no official confirmation and no medical professional has spoken on record, the whispers have intensified ongoing speculation regarding his mental well-being.</p>
+
+      <p>What makes the situation more complex is what's being said about his life away from the spotlight. A former staff member who once worked in the Kafka family residence in London described an atmosphere that felt very different from the image people are used to seeing. According to them, Kafka appeared more distant and tense at home, nothing like the relaxed and engaging figure presented in public.</p>
+
+      <p>They also shared that he rarely chose to stay at the residence itself. Instead, he often preferred spending nights in hotels. The reason, they suggested, had a lot to do with his relationship with his father, Edward Kafka.</p>
+
+      <p>There are also claims that his professional independence may not be as complete as it appears. While Kafka leads multiple companies, those businesses are reportedly still tied to Kafka Company, an entity controlled by his father. The same source believes this has kept him in a position where stepping away isn't as simple as it looks, especially if the relationship between them is as strained as described.</p>
+
+      <p>Kafka has not responded to any of these claims, and without confirmation, much of this remains speculation.</p>
+
+      <p>Even so, the growing contrast between who he appears to be and who he might be behind closed doors is becoming harder for people to ignore.</p>
+
+      <p>It leaves a lingering question that doesn't have a simple answer. Is Kafka really the person the public has come to admire, or is that image only part of a much more complicated story?</p>
+
+      <!-- KOMENTAR sesuai permintaan -->
+      <div class="comments-section">
+        <div class="comments-header">
+          <h3>Komentar</h3>
+          <span>1.2k+</span>
+        </div>
+
+        <!-- @resdexu -->
+        <div class="comment-item">
+          <div class="comment-avatar">R</div>
+          <div class="comment-content">
+            <div class="comment-user">@resdexu <span>· 1 jam lalu</span></div>
+            <div class="comment-text">"Bacoooot! Nongolin berita jelek mulu lu kek gaada bahan yang bagus ae!"</div>
+            <div class="comment-footer"><i class="far fa-heart"></i> 2.4k <i class="far fa-comment"></i> 89</div>
+          </div>
+        </div>
+
+        <!-- @Farisszta dengan 2 sub-reply (Trozeck dan LobakSayurr) serta sub-reply dari LobakSayurr juga ada balasan baru -->
+        <div class="comment-item">
+          <div class="comment-avatar">F</div>
+          <div class="comment-content">
+            <div class="comment-user">@Farisszta <span>· 2 jam lalu</span></div>
+            <div class="comment-text">"Jelas lah orang media itu gaada yang pure baik, ada sisi ga baiknya juga. Tapi gaboleh lah dijudge cuma karena dia keliatan jahat sedikit sedangkan dia berperan penting banget loh dalam kemajuan teknologi dan media di Indonesia. Kalian pada kalau pas covid 19 dan setelahnya dia ini yang paling gencar ngajarin generasi muda buat pakai sistem online, biar apa? Biar bisa tetap belajar dan ga ketinggalan dibidang pendidikan! Dia nyumbang banyak dana untuk keperluan sekolah anak-anak!"</div>
+            <div class="comment-footer"><i class="far fa-heart"></i> 1.8k <i class="far fa-comment"></i> 45</div>
+            
+            <!-- Balasan dari @Trozeck -->
+            <div class="reply">
+              <div class="comment-avatar" style="width: 32px; height: 32px; font-size: 0.8rem;">T</div>
+              <div class="comment-content">
+                <div class="comment-user">@Trozeck <span>· 2 jam lalu</span></div>
+                <div class="comment-text">"Eh kocak, dia nyumbang ga di Indo doang. Di seluruh dunia. Itu teknik promosi jasa dia juga! Mana ada yang cuma-cuma aja mau ngasih bantuan besar kalau gaada timbal baliknya? Dia wna juga, udah berapa tahun tinggal di Indo, ada ga niat pindah warga negara? Gaada."</div>
+                <div class="comment-footer"><i class="far fa-heart"></i> 998 <i class="far fa-comment"></i> 12</div>
+                
+                <!-- Balasan dari @LobakSayurr di bawah @Trozeck -->
+                <div class="reply" style="margin-left: 20px;">
+                  <div class="comment-avatar" style="width: 32px; height: 32px; font-size: 0.8rem;">L</div>
+                  <div class="comment-content">
+                    <div class="comment-user">@LobakSayurr <span>· 1 jam lalu</span></div>
+                    <div class="comment-text">"Imo, dia aktif bantu dibeberapa kegiatan generasi muda, but not that much sih ya buat sampai dianggap hampir kek pahlawan. He's nothing than a business man."</div>
+                    <div class="comment-footer"><i class="far fa-heart"></i> 456 <i class="far fa-comment"></i> 8</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- @Rematsah -->
+        <div class="comment-item">
+          <div class="comment-avatar">R</div>
+          <div class="comment-content">
+            <div class="comment-user">@Rematsah <span>· 3 jam lalu</span></div>
+            <div class="comment-text">"Udah ah balik aja lu ke London"</div>
+            <div class="comment-footer"><i class="far fa-heart"></i> 3.2k <i class="far fa-comment"></i> 112</div>
+          </div>
+        </div>
+
+        <!-- @Blianwas -->
+        <div class="comment-item">
+          <div class="comment-avatar">B</div>
+          <div class="comment-content">
+            <div class="comment-user">@Blianwas <span>· 4 jam lalu</span></div>
+            <div class="comment-text">"Serem sih kalau branding image dia bagus eh taunya segelap ini. Tapi yaaa semua orang punya dark side masing-masing sih."</div>
+            <div class="comment-footer"><i class="far fa-heart"></i> 5.1k <i class="far fa-comment"></i> 201</div>
+          </div>
+        </div>
+
+        <!-- @Ptootie -->
+        <div class="comment-item">
+          <div class="comment-avatar">P</div>
+          <div class="comment-content">
+            <div class="comment-user">@Ptootie <span>· 5 jam lalu</span></div>
+            <div class="comment-text">"You guys sooo dumb! Percaya Dispagz after what they did to Kafka?! Kalian muka dua banget anjiiiir!"</div>
+            <div class="comment-footer"><i class="far fa-heart"></i> 4.3k <i class="far fa-comment"></i> 87</div>
+          </div>
+        </div>
+
+        <div class="more-comments">
+          <i class="far fa-comment-dots"></i> +999 komentar lainnya
+        </div>
+      </div>
+    </div> <!-- end article-content -->
+
+    <!-- footer -->
+    <div class="article-footer">
+      <span><i class="far fa-clock"></i> 3 Mei 2026 · updated 2h ago</span>
+    </div>
+  </div>
+</body>
+</html>
